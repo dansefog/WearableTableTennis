@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\Git\WearableTableTennis\WearableTableTennis\mobile\build\intermediates\exploded-aar\com.android.support\support-v4\22.1.1\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="c95ba8152923e4872e86a82cfcba9a51c0214328">
+        <dex dex="C:\Git\WearableTableTennis\WearableTableTennis\mobile\build\intermediates\pre-dexed\debug\classes-6bf1727f5e5138770bba3a5b03b0122dbd2a8063.jar" />
+    </item>
+    <item
+        jar="C:\Git\WearableTableTennis\WearableTableTennis\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads\7.0.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="e3d791b42eaa90416cd0b2d2e608092794a3baa4">
+        <dex dex="C:\Git\WearableTableTennis\WearableTableTennis\mobile\build\intermediates\pre-dexed\debug\classes-8aeee761a85cbdebdfb4ac9082926d1fc6e4fc1e.jar" />
+    </item>
+    <item
+        jar="C:\Git\WearableTableTennis\WearableTableTennis\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-maps\7.0.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="17f8750d5c0749e44dd7c54aa390d9c937803825">
+        <dex dex="C:\Git\WearableTableTennis\WearableTableTennis\mobile\build\intermediates\pre-dexed\debug\classes-f03359ac9be1b3be191a027d4b31d13d9fa9a007.jar" />
+    </item>
+    <item
+        jar="C:\Git\WearableTableTennis\WearableTableTennis\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-analytics\7.0.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="29fd6d3794b71491c2789708cd8d03c71feb8954">
+        <dex dex="C:\Git\WearableTableTennis\WearableTableTennis\mobile\build\intermediates\pre-dexed\debug\classes-9b3d8f33d7e8c45a8f66ffd6fbb736b02f55b623.jar" />
+    </item>
+    <item
+        jar="C:\Git\WearableTableTennis\WearableTableTennis\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-drive\7.0.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="41b3870cbe5fa546d8095b5b89d42cb69f3dd175">
+        <dex dex="C:\Git\WearableTableTennis\WearableTableTennis\mobile\build\intermediates\pre-dexed\debug\classes-3020fb65b639c0ff3205bdfb733d8617f85ea33c.jar" />
+    </item>
+    <item
+        jar="C:\Git\WearableTableTennis\WearableTableTennis\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-games\7.0.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="055783146ba9654a725442563be78cad303aad1f">
+        <dex dex="C:\Git\WearableTableTennis\WearableTableTennis\mobile\build\intermediates\pre-dexed\debug\classes-9ad2c5cada1292c235933912c3e5e449bd94f577.jar" />
+    </item>
+    <item
+        jar="C:\Git\WearableTableTennis\WearableTableTennis\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\7.0.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="4c93d99d454c975536bbe3b42283eee847f03ea3">
+        <dex dex="C:\Git\WearableTableTennis\WearableTableTennis\mobile\build\intermediates\pre-dexed\debug\classes-3b4ebf3f9f702d59efd7b46b7df64b781f60383f.jar" />
+    </item>
+    <item
+        jar="C:\Git\WearableTableTennis\WearableTableTennis\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-identity\7.0.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="fb04b12526b0073c7fb1ebb70c5842d82ee95596">
+        <dex dex="C:\Git\WearableTableTennis\WearableTableTennis\mobile\build\intermediates\pre-dexed\debug\classes-644e1c58cbf4a247fffd0f18d7f2ef34c6803b6b.jar" />
+    </item>
+    <item
+        jar="C:\Git\WearableTableTennis\WearableTableTennis\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-gcm\7.0.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="9224bc4c54ba95147c7eabd874573763c07cb6be">
+        <dex dex="C:\Git\WearableTableTennis\WearableTableTennis\mobile\build\intermediates\pre-dexed\debug\classes-00fb6b74e0ac6b5378b3abe221fa89e3314fd753.jar" />
+    </item>
+    <item
+        jar="C:\Git\WearableTableTennis\WearableTableTennis\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-appstate\7.0.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="7ff613bf78ab057293892fdbd4169eda899c89b9">
+        <dex dex="C:\Git\WearableTableTennis\WearableTableTennis\mobile\build\intermediates\pre-dexed\debug\classes-57c9a53a8b73fb9e56d5ae821e9ebe682997a10f.jar" />
+    </item>
+    <item
+        jar="C:\Git\WearableTableTennis\WearableTableTennis\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-wearable\7.0.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="3033cc3a2c68dff3e5b646d6d084bdbdf7d00b25">
+        <dex dex="C:\Git\WearableTableTennis\WearableTableTennis\mobile\build\intermediates\pre-dexed\debug\classes-0e3b64eb72b28cd270e2e125fcdb9bfa0e21e916.jar" />
+    </item>
+    <item
+        jar="C:\Git\WearableTableTennis\WearableTableTennis\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-safetynet\7.0.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="c976518693e89ad44fbfccfc654941eaec198d08">
+        <dex dex="C:\Git\WearableTableTennis\WearableTableTennis\mobile\build\intermediates\pre-dexed\debug\classes-95c3e3dcd09456cf5a78319974b27ab549b7fd91.jar" />
+    </item>
+    <item
+        jar="C:\Git\WearableTableTennis\WearableTableTennis\mobile\build\intermediates\exploded-aar\com.android.support\support-v4\22.1.1\jars\libs\internal_impl-22.1.1.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="9e070ad32b2700b0343e8e0cccc437733d91ba3a">
+        <dex dex="C:\Git\WearableTableTennis\WearableTableTennis\mobile\build\intermediates\pre-dexed\debug\internal_impl-22.1.1-7cf5dc4d8b2a7fa6eef0b4466942a13a87930ccf.jar" />
+    </item>
+    <item
+        jar="C:\Users\Jhon\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\22.1.1\support-annotations-22.1.1.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="01d051a6bfb1218b1db2d3a5af0480ac2c25c42a">
+        <dex dex="C:\Git\WearableTableTennis\WearableTableTennis\mobile\build\intermediates\pre-dexed\debug\support-annotations-22.1.1-830a8720bfeddb9732cc15928286f18861a88cdd.jar" />
+    </item>
+    <item
+        jar="C:\Git\WearableTableTennis\WearableTableTennis\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-nearby\7.0.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="ef5f051e7308febe289dc93c67c5f32785b4260a">
+        <dex dex="C:\Git\WearableTableTennis\WearableTableTennis\mobile\build\intermediates\pre-dexed\debug\classes-2f19c33d2508f7e1dd9526c0e0bc29c61ee900bc.jar" />
+    </item>
+    <item
+        jar="C:\Git\WearableTableTennis\WearableTableTennis\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-fitness\7.0.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="3c0b099f9de16b265ecd6122fcb603e7d0d29f90">
+        <dex dex="C:\Git\WearableTableTennis\WearableTableTennis\mobile\build\intermediates\pre-dexed\debug\classes-71732383b215d595fd621d7d58b1681ce4fc2651.jar" />
+    </item>
+    <item
+        jar="C:\Git\WearableTableTennis\WearableTableTennis\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-wallet\7.0.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="a96b762bde4139de855735f175ec4d17dca55a6d">
+        <dex dex="C:\Git\WearableTableTennis\WearableTableTennis\mobile\build\intermediates\pre-dexed\debug\classes-7d336c2b48da3dbbb59d619589d39beef1e83a49.jar" />
+    </item>
+    <item
+        jar="C:\Git\WearableTableTennis\WearableTableTennis\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-location\7.0.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="73ccb92b70112f2e463e415ef8d7275de7da6516">
+        <dex dex="C:\Git\WearableTableTennis\WearableTableTennis\mobile\build\intermediates\pre-dexed\debug\classes-0fd1da1d2c0f901474f4bc0d92e1e364abfcd250.jar" />
+    </item>
+    <item
+        jar="C:\Git\WearableTableTennis\WearableTableTennis\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-cast\7.0.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="4cd0b093824b3228fffc21ea369b98d0b1db6566">
+        <dex dex="C:\Git\WearableTableTennis\WearableTableTennis\mobile\build\intermediates\pre-dexed\debug\classes-b14d07ca9940174827f16cfa78f87d104d0b541d.jar" />
+    </item>
+    <item
+        jar="C:\Git\WearableTableTennis\WearableTableTennis\mobile\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.1.1\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="a3ff3c506644c820eb2bdf06e8339f72be578551">
+        <dex dex="C:\Git\WearableTableTennis\WearableTableTennis\mobile\build\intermediates\pre-dexed\debug\classes-7adaa30c77175c42dea11cb432ee5fe7db7d34ea.jar" />
+    </item>
+    <item
+        jar="C:\Git\WearableTableTennis\WearableTableTennis\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-panorama\7.0.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="1c5a76debf0c2857ccad422c4a80ed785982f8df">
+        <dex dex="C:\Git\WearableTableTennis\WearableTableTennis\mobile\build\intermediates\pre-dexed\debug\classes-66c8927025474a1940624e1f6ec225fe16e3a308.jar" />
+    </item>
+    <item
+        jar="C:\Git\WearableTableTennis\WearableTableTennis\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-plus\7.0.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="0e8228b4bc69c6a2c8d7c18498a77e53417d2574">
+        <dex dex="C:\Git\WearableTableTennis\WearableTableTennis\mobile\build\intermediates\pre-dexed\debug\classes-ed26d540309969300575a8dacc76c4704bbfacda.jar" />
+    </item>
+    <item
+        jar="C:\Git\WearableTableTennis\WearableTableTennis\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-appindexing\7.0.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="a08d65794b844d8e7540bf9a33859bf3b2482d7f">
+        <dex dex="C:\Git\WearableTableTennis\WearableTableTennis\mobile\build\intermediates\pre-dexed\debug\classes-f4e02f69e0961ca4fe7df9ba4a6c9fd085973ebf.jar" />
+    </item>
+
+</items>
