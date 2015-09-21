@@ -58,6 +58,14 @@
         android:layout_centerHorizontal="true"
         android:text="せーふ" />
 
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="連続判定"
+        android:id="@+id/ContinuitySwitch"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
 
 </RelativeLayout>
 <!-- From: file:/C:/Git/WearableTableTennis/WearableTableTennis/mobile/src/main/res/layout/activity_main.xml -->

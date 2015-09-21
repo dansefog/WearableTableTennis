@@ -12,7 +12,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.SeekBar;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.example.jhon.wearabletabletennis.R;
@@ -32,7 +34,8 @@ import com.google.android.gms.wearable.Wearable;
 
 public class MainActivity extends ActionBarActivity
         implements GoogleApiClient.ConnectionCallbacks, MessageApi.MessageListener,
-        DataApi.DataListener, ResultCallback<DataApi.DeleteDataItemsResult>{
+        DataApi.DataListener, ResultCallback<DataApi.DeleteDataItemsResult>,
+        Switch.OnCheckedChangeListener{
 
     //固定値
     public static final int TYPE_ACC = 1;
@@ -47,8 +50,10 @@ public class MainActivity extends ActionBarActivity
     private SeekBar AccSeek;
     private SeekBar GyroSeek;
     private Button ResetButton;
+    private Switch ContinuitySwitch;
     float Acc = 18;
     float Gyro = 8;
+    private boolean IsJudge = false;
 
     private SoundPool Whistle;
     private int WhistleId;
@@ -69,6 +74,9 @@ public class MainActivity extends ActionBarActivity
         OutText = (TextView)findViewById(R.id.OutText);
         AccSeek = (SeekBar)findViewById(R.id.AccSeekBar);
         GyroSeek = (SeekBar)findViewById(R.id.GyroSeekBar);
+        ContinuitySwitch = (Switch)findViewById(R.id.ContinuitySwitch);
+        ContinuitySwitch.setOnCheckedChangeListener(this);
+
         handler= new Handler();
         View.OnClickListener ResetClickListener = new View.OnClickListener() {
             @Override
@@ -102,8 +110,8 @@ public class MainActivity extends ActionBarActivity
                     public void onStopTrackingTouch(SeekBar seekBar) {
                         // ツマミを離したときに呼ばれる
                         Acc = (float) (9 + (AccSeek.getProgress() * 0.5));
-                        SetData(Acc,"Acc");
-                        AccText.setText(String.format("加速度閾値 : %4f", Acc));
+                        SetData(String.valueOf(Acc),"Acc");
+                        AccText.setText(String.format("加速度閾値 : %.2f", Acc));
                     }
                 }
         );
@@ -122,8 +130,8 @@ public class MainActivity extends ActionBarActivity
                     public void onStopTrackingTouch(SeekBar seekBar) {
                         // ツマミを離したときに呼ばれる
                         Gyro = (float) (9 + (GyroSeek.getProgress() * 0.5));
-                        SetData(Gyro, "Gyro");
-                        GyroText.setText(String.format("角速度閾値 : %4f", Gyro));
+                        SetData(String.valueOf(Gyro), "Gyro");
+                        GyroText.setText(String.format("角速度閾値 : %.2f", Gyro));
                     }
                 }
         );
@@ -131,13 +139,13 @@ public class MainActivity extends ActionBarActivity
 
     }
 
-    private void SetData(float Data, String Key) {
+    private void SetData(String Data, String Key) {
         // DataMapインスタンスを生成する
         PutDataMapRequest dataMapRequest = PutDataMapRequest.create("/datapath");
         DataMap dataMap = dataMapRequest.getDataMap();
 
         // データをセットする
-        dataMap.putFloat(Key, Data);
+        dataMap.putString(Key, Data);
         // データを更新する
         PutDataRequest request = dataMapRequest.asPutDataRequest();
         PendingResult<DataApi.DataItemResult> pendingResult = Wearable.DataApi.putDataItem(mGoogleApiClient, request);
@@ -255,23 +263,25 @@ public class MainActivity extends ActionBarActivity
             final String[] CData = MessagePayload.split(" ");
             OverSize = Float.parseFloat(CData[0]);
             final int Type = Integer.parseInt(CData[1]);
-            //ハンドラを使ってUIスレッドへポスト
-            if(Type == TYPE_ACC) {
-                OverSize = OverSize - Acc;
-            }
-            else if(Type == TYPE_GYRO) {
-                OverSize = OverSize - Gyro;
-            }
-            final float finalOverSize = OverSize;
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    OutText.setText(String.format("つよすぎ！！！\n" +
-                                                   TYPE[Type - 1] + "超過値：%f", finalOverSize));
+            if (ContinuitySwitch.isChecked() || (!ContinuitySwitch.isChecked() && !IsJudge)) {
+                //ハンドラを使ってUIスレッドへポスト
+                if (Type == TYPE_ACC) {
+                    OverSize = OverSize - Acc;
+                } else if (Type == TYPE_GYRO) {
+                    OverSize = OverSize - Gyro;
                 }
-            });
-            Whistle.play(WhistleId, 1.0F, 1.0F, 0, 0, 1.0F);
-            Vibration();
+                final float finalOverSize = OverSize;
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        OutText.setText(String.format("つよすぎ！！！\n" +
+                                TYPE[Type - 1] + "超過値：%.3f", finalOverSize));
+                    }
+                });
+                Whistle.play(WhistleId, 1.0F, 1.0F, 0, 0, 1.0F);
+                Vibration();
+                IsJudge = true;
+            }
         }
     }
 
@@ -281,6 +291,12 @@ public class MainActivity extends ActionBarActivity
 
     private void Reset() {
         OutText.setText("せーふ");
+        IsJudge = false;
+        SetData(String.valueOf(IsJudge),"IsJudge");
     }
 
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        SetData(String.valueOf(isChecked), "Continuity");
+    }
 }

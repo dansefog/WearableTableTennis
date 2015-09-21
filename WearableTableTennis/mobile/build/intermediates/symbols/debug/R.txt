@@ -503,6 +503,7 @@ int drawable powered_by_google_dark 0x7f02005a
 int drawable powered_by_google_light 0x7f02005b
 int id AccSeekBar 0x7f0d0064
 int id AccText 0x7f0d0065
+int id ContinuitySwitch 0x7f0d006a
 int id GyroSeekBar 0x7f0d0066
 int id GyroText 0x7f0d0067
 int id OutText 0x7f0d0069
@@ -520,7 +521,7 @@ int id action_menu_presenter 0x7f0d0003
 int id action_mode_bar 0x7f0d0052
 int id action_mode_bar_stub 0x7f0d0051
 int id action_mode_close_button 0x7f0d003a
-int id action_settings 0x7f0d006a
+int id action_settings 0x7f0d006b
 int id activity_chooser_view_content 0x7f0d003b
 int id adjust_height 0x7f0d0017
 int id adjust_width 0x7f0d0018

@@ -60,6 +60,8 @@ public class MainWearActivity extends Activity implements SensorEventListener,Go
     boolean NowVib = false;
     boolean IsAccOver = false;
     boolean IsGyroOver = false;
+    boolean IsJudge = false;
+    boolean IsContinuity = false;
     float GyroSize = 0;
     float AccSize = 0;
     float GyroTh = 9;
@@ -176,6 +178,7 @@ public class MainWearActivity extends Activity implements SensorEventListener,Go
                     Vibration();
                     RequestWhistle(GyroOverMax, TYPE_GYRO);
                     IsGyroOver = false;
+                    IsJudge = true;
                     GyroOverList = new ArrayList<Float>();
                     GyroCollection = GyroOverList;
                 }
@@ -192,7 +195,7 @@ public class MainWearActivity extends Activity implements SensorEventListener,Go
                         mAccelerometerValues[1] * mAccelerometerValues[1] +
                         mAccelerometerValues[2] * mAccelerometerValues[2]);
                 if (DataTextView != null) {
-                    DataTextView.setText(String.format("Acc : %f\nGyro : %f\n",AccSize,GyroSize));
+                    DataTextView.setText(String.format("Acc : %.3f\nGyro : %.3f\n",AccSize,GyroSize));
                 }
                 //閾値を超えた場合の処理
                 if(AccSize >= AccTh && PowerLimit.isChecked()) {
@@ -203,8 +206,11 @@ public class MainWearActivity extends Activity implements SensorEventListener,Go
                 else if(IsAccOver && AccSize <= (AccTh - 1.0)) {
                     //超えて元に戻ったとき：最大値をスマホに投げてリストを初期化
                     AccOverMax = (float) Collections.max(AccCollection);
-                    Vibration();
-                    RequestWhistle(AccOverMax, TYPE_ACC);
+                    if(IsContinuity || (!IsContinuity && !IsJudge)) {
+                        Vibration();
+                        RequestWhistle(AccOverMax, TYPE_ACC);
+                    }
+                    IsJudge = true;
                     IsAccOver = false;
                     AccOverList = new ArrayList<Float>();
                     AccCollection = AccOverList;
@@ -231,8 +237,11 @@ public class MainWearActivity extends Activity implements SensorEventListener,Go
                 // 更新されたデータを取得する
                 DataMap dataMap = DataMap.fromByteArray(event.getDataItem().getData());
                 //データマップに書かれた値を取得（なければ今の値を保持）
-                AccTh = dataMap.getFloat("Acc",AccTh);
-                GyroTh = dataMap.getFloat("Gyro",GyroTh);
+                //すべてString型でデータをやり取りしているため、それぞれの変数に対応する型へキャストしている
+                AccTh = Float.parseFloat(dataMap.getString("Acc", String.valueOf(AccTh)));
+                GyroTh = Float.parseFloat(dataMap.getString("Gyro", String.valueOf(GyroTh)));
+                IsJudge = Boolean.parseBoolean(dataMap.getString("IsJudge", String.valueOf(IsJudge)));
+                IsContinuity = Boolean.parseBoolean(dataMap.getString("Continuity",String.valueOf(IsContinuity)));
                 ThresholdText.setText(String.format("Threshold\n Acc : %f\n Gyro : %f\n", AccTh, GyroTh));
             }
         }
