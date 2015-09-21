@@ -36,6 +36,10 @@ import java.util.List;
 public class MainWearActivity extends Activity implements SensorEventListener,GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,MessageApi.MessageListener,DataApi.DataListener, ResultCallback<DataApi.DeleteDataItemsResult> {
 
+    //固定値
+    public static final int TYPE_ACC = 1;
+    public static final int TYPE_GYRO = 2;
+
     private TextView DataTextView,ThresholdText;
     private Vibrator Vib;
     private CheckBox PowerLimit;
@@ -58,7 +62,7 @@ public class MainWearActivity extends Activity implements SensorEventListener,Go
     boolean IsGyroOver = false;
     float GyroSize = 0;
     float AccSize = 0;
-    float GyroTh = 8;
+    float GyroTh = 9;
     float AccTh = 18;
 
     @Override
@@ -162,13 +166,18 @@ public class MainWearActivity extends Activity implements SensorEventListener,Go
                 if (DataTextView != null) {
                     DataTextView.setText(String.format("Acc : %f\nGyro : %f\n",AccSize,GyroSize));
                 }
-                if(GyroSize >= GyroTh && SnapLimit.isChecked()){
-                    //GyroOverList.add(GyroSize);
-                    Vibration();
-                    ReqestWhistle(GyroOverMax);
-                }
-                else{
+                if(GyroSize >= GyroTh && SnapLimit.isChecked()) {
+                    if(!IsGyroOver){IsGyroOver = true;}
+                    GyroOverList.add(GyroSize);
 
+                }
+                else if(IsGyroOver && GyroSize <= (GyroTh - 1.0)) {
+                    GyroOverMax = (float) Collections.max(GyroCollection);
+                    Vibration();
+                    RequestWhistle(GyroOverMax, TYPE_GYRO);
+                    IsGyroOver = false;
+                    GyroOverList = new ArrayList<Float>();
+                    GyroCollection = GyroOverList;
                 }
             }
         }
@@ -191,11 +200,11 @@ public class MainWearActivity extends Activity implements SensorEventListener,Go
                     if(!IsAccOver){IsAccOver = true;}
                     AccOverList.add(AccSize);
                 }
-                else if(IsAccOver && AccSize <= (AccTh - 0.5)) {
+                else if(IsAccOver && AccSize <= (AccTh - 1.0)) {
                     //超えて元に戻ったとき：最大値をスマホに投げてリストを初期化
                     AccOverMax = (float) Collections.max(AccCollection);
                     Vibration();
-                    ReqestWhistle(AccOverMax);
+                    RequestWhistle(AccOverMax, TYPE_ACC);
                     IsAccOver = false;
                     AccOverList = new ArrayList<Float>();
                     AccCollection = AccOverList;
@@ -240,14 +249,15 @@ public class MainWearActivity extends Activity implements SensorEventListener,Go
         }
     }
 
-    private void ReqestWhistle(float OverSize) {
+    private void RequestWhistle(float OverSize, int Type) {
         final float FinalOverSize = OverSize;
+        final int FinalType = Type;
         PendingResult<NodeApi.GetConnectedNodesResult> nodes = Wearable.NodeApi.getConnectedNodes(mGoogleApiClient);
         nodes.setResultCallback(new ResultCallback<NodeApi.GetConnectedNodesResult>() {
             @Override
             public void onResult(NodeApi.GetConnectedNodesResult result) {
                 for (Node node : result.getNodes()) {
-                    final byte[] bs = (FinalOverSize + " " + node.getId()).getBytes();
+                    final byte[] bs = (FinalOverSize + " " + FinalType + " " + node.getId()).getBytes();
                     PendingResult<MessageApi.SendMessageResult> messageResult =
                             Wearable.MessageApi.sendMessage(mGoogleApiClient, node.getId(), "/Whistle", bs);
                     messageResult.setResultCallback(new ResultCallback<MessageApi.SendMessageResult>() {

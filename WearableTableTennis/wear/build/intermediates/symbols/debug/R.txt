@@ -175,6 +175,7 @@ int drawable ic_plusone_medium_off_client 0x7f02006e
 int drawable ic_plusone_small_off_client 0x7f02006f
 int drawable ic_plusone_standard_off_client 0x7f020070
 int drawable ic_plusone_tall_off_client 0x7f020071
+int drawable mig 0x7f020072
 int id DataWindow 0x7f0a0013
 int id PowerLimit 0x7f0a0014
 int id SnapLimit 0x7f0a0015

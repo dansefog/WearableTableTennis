@@ -34,6 +34,11 @@ public class MainActivity extends ActionBarActivity
         implements GoogleApiClient.ConnectionCallbacks, MessageApi.MessageListener,
         DataApi.DataListener, ResultCallback<DataApi.DeleteDataItemsResult>{
 
+    //固定値
+    public static final int TYPE_ACC = 1;
+    public static final int TYPE_GYRO = 2;
+    public static final String[] TYPE = {"Acc", "Gyro"};
+
     private static final String TAG = MainActivity.class.getName();
     private GoogleApiClient mGoogleApiClient;
     private TextView AccText;
@@ -117,7 +122,7 @@ public class MainActivity extends ActionBarActivity
                     public void onStopTrackingTouch(SeekBar seekBar) {
                         // ツマミを離したときに呼ばれる
                         Gyro = (float) (9 + (GyroSeek.getProgress() * 0.5));
-                        SetData(Gyro,"Gyro");
+                        SetData(Gyro, "Gyro");
                         GyroText.setText(String.format("角速度閾値 : %4f", Gyro));
                     }
                 }
@@ -247,14 +252,22 @@ public class MainActivity extends ActionBarActivity
         String MessagePayload;
         if (messageEvent.getPath().equals("/Whistle")) {
             MessagePayload = new String(messageEvent.getData());
-            String[] CData = MessagePayload.split(" ");
+            final String[] CData = MessagePayload.split(" ");
             OverSize = Float.parseFloat(CData[0]);
+            final int Type = Integer.parseInt(CData[1]);
             //ハンドラを使ってUIスレッドへポスト
-            final float finalOverSize = OverSize - Acc;
+            if(Type == TYPE_ACC) {
+                OverSize = OverSize - Acc;
+            }
+            else if(Type == TYPE_GYRO) {
+                OverSize = OverSize - Gyro;
+            }
+            final float finalOverSize = OverSize;
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    OutText.setText(String.format("つよすぎ！！！\n超過値：%f", finalOverSize));
+                    OutText.setText(String.format("つよすぎ！！！\n" +
+                                                   TYPE[Type - 1] + "超過値：%f", finalOverSize));
                 }
             });
             Whistle.play(WhistleId, 1.0F, 1.0F, 0, 0, 1.0F);
