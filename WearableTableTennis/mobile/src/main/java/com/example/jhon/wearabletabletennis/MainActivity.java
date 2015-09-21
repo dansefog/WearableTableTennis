@@ -17,7 +17,6 @@ import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import com.example.jhon.wearabletabletennis.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -31,6 +30,12 @@ import com.google.android.gms.wearable.MessageEvent;
 import com.google.android.gms.wearable.PutDataMapRequest;
 import com.google.android.gms.wearable.PutDataRequest;
 import com.google.android.gms.wearable.Wearable;
+
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.Socket;
 
 public class MainActivity extends ActionBarActivity
         implements GoogleApiClient.ConnectionCallbacks, MessageApi.MessageListener,
@@ -61,6 +66,7 @@ public class MainActivity extends ActionBarActivity
     private Vibrator Vib;
 
     Handler handler;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -104,13 +110,15 @@ public class MainActivity extends ActionBarActivity
                                                   int progress, boolean fromUser) {
                         //つまみの値が変化したときに呼ばれる
                     }
+
                     public void onStartTrackingTouch(SeekBar seekBar) {
                         // ツマミに触れたときに呼ばれる
                     }
+
                     public void onStopTrackingTouch(SeekBar seekBar) {
                         // ツマミを離したときに呼ばれる
                         Acc = (float) (9 + (AccSeek.getProgress() * 0.5));
-                        SetData(String.valueOf(Acc),"Acc");
+                        SetData(String.valueOf(Acc), "Acc");
                         AccText.setText(String.format("加速度閾値 : %.2f", Acc));
                     }
                 }
@@ -135,7 +143,6 @@ public class MainActivity extends ActionBarActivity
                     }
                 }
         );
-
 
     }
 
@@ -197,6 +204,11 @@ public class MainActivity extends ActionBarActivity
             Wearable.DataApi.removeListener(mGoogleApiClient, this);
             mGoogleApiClient.disconnect();
         }
+    }
+
+    @Override
+        protected void onDestroy() {
+        super.onDestroy();
     }
 
     @Override
@@ -281,6 +293,7 @@ public class MainActivity extends ActionBarActivity
                 Whistle.play(WhistleId, 1.0F, 1.0F, 0, 0, 1.0F);
                 Vibration();
                 IsJudge = true;
+                SendCommand("Over" + TYPE[Type - 1]);
             }
         }
     }
@@ -292,11 +305,23 @@ public class MainActivity extends ActionBarActivity
     private void Reset() {
         OutText.setText("せーふ");
         IsJudge = false;
-        SetData(String.valueOf(IsJudge),"IsJudge");
+        SetData(String.valueOf(IsJudge), "IsJudge");
     }
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        SetData(String.valueOf(isChecked), "Continuity");
+        SetData(String.valueOf(!isChecked), "Continuity");
+    }
+
+    public void SendCommand(String Data) {
+        try (final Socket socket = new Socket("localhost", 8888)) {
+            final OutputStream outputStream = socket.getOutputStream();
+            final BufferedWriter writer = new BufferedWriter(
+                    new OutputStreamWriter(outputStream));
+            writer.append(Data);
+            writer.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

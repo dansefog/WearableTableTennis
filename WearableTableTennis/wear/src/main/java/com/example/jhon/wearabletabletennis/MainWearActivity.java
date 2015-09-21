@@ -206,10 +206,8 @@ public class MainWearActivity extends Activity implements SensorEventListener,Go
                 else if(IsAccOver && AccSize <= (AccTh - 1.0)) {
                     //超えて元に戻ったとき：最大値をスマホに投げてリストを初期化
                     AccOverMax = (float) Collections.max(AccCollection);
-                    if(IsContinuity || (!IsContinuity && !IsJudge)) {
-                        Vibration();
-                        RequestWhistle(AccOverMax, TYPE_ACC);
-                    }
+                    Vibration();
+                    RequestWhistle(AccOverMax, TYPE_ACC);
                     IsJudge = true;
                     IsAccOver = false;
                     AccOverList = new ArrayList<Float>();
