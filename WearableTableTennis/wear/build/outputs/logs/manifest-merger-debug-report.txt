@@ -38,7 +38,7 @@ MERGED from com.android.support:support-v4:22.0.0:22:5
 		ADDED from AndroidManifest.xml:10:9
 	android:theme
 		ADDED from AndroidManifest.xml:12:9
-activity#com.example.jhon.wearabletabletannis.MainWearActivity
+activity#com.example.jhon.wearabletabletennis.MainWearActivity
 ADDED from AndroidManifest.xml:13:9
 	android:label
 		ADDED from AndroidManifest.xml:15:13
