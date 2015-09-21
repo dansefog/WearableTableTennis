@@ -96,8 +96,9 @@ public class MainActivity extends ActionBarActivity
                     }
                     public void onStopTrackingTouch(SeekBar seekBar) {
                         // ツマミを離したときに呼ばれる
-                        SetData((float)AccSeek.getProgress(),"Acc");
-                        AccText.setText(String.format("加速度閾値 : %d", (int)AccSeek.getProgress()));
+                        Acc = (float) (9 + (AccSeek.getProgress() * 0.5));
+                        SetData(Acc,"Acc");
+                        AccText.setText(String.format("加速度閾値 : %4f", Acc));
                     }
                 }
         );
@@ -115,8 +116,9 @@ public class MainActivity extends ActionBarActivity
 
                     public void onStopTrackingTouch(SeekBar seekBar) {
                         // ツマミを離したときに呼ばれる
-                        SetData(GyroSeek.getProgress(), "Gyro");
-                        GyroText.setText(String.format("角速度閾値 : %d", (int) GyroSeek.getProgress()));
+                        Gyro = (float) (9 + (GyroSeek.getProgress() * 0.5));
+                        SetData(Gyro,"Gyro");
+                        GyroText.setText(String.format("角速度閾値 : %4f", Gyro));
                     }
                 }
         );
