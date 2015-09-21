@@ -9,7 +9,7 @@ public class SensorFilter {
     private ArrayList<Float> mSecond    = new ArrayList<Float>();
     private ArrayList<Float> mThrad     = new ArrayList<Float>();
 
-    private final float GAIN = 0.9f;
+    private final float GAIN = 0.6f;
 
     public int sampleCount=1;//サンプリング数
     public int sampleNum = 0;//サンプリングした値の使用値のインデックス

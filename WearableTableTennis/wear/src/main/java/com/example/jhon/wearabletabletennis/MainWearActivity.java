@@ -28,6 +28,9 @@ import com.google.android.gms.wearable.Node;
 import com.google.android.gms.wearable.NodeApi;
 import com.google.android.gms.wearable.Wearable;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class MainWearActivity extends Activity implements SensorEventListener,GoogleApiClient.ConnectionCallbacks,
@@ -40,13 +43,19 @@ public class MainWearActivity extends Activity implements SensorEventListener,Go
     private SensorManager mSensorManager;
     private GoogleApiClient mGoogleApiClient;
     SensorFilter AccSensorFilter,GyroSensorFilter;
+
     private final String TAG = MainWearActivity.class.getName();
     /** GYRO行列 */
     private float[] mGyroValues;
     /** 加速度行列 */
     private float[] mAccelerometerValues;
 
+    //ふりすぎ閾値判定
+    private ArrayList<Float> AccOverList,GyroOverList;
+    private Collection AccCollection,GyroCollection;
     boolean NowVib = false;
+    boolean IsAccOver = false;
+    boolean IsGyroOver = false;
     float GyroSize = 0;
     float AccSize = 0;
     float GyroTh = 8;
@@ -87,6 +96,11 @@ public class MainWearActivity extends Activity implements SensorEventListener,Go
         //各センサ用フィルタのインスタンス生成
         AccSensorFilter = new SensorFilter();
         GyroSensorFilter = new SensorFilter();
+        //閾値超えたリストのインスタンス生成
+        AccOverList = new ArrayList<Float>();
+        GyroOverList = new ArrayList<Float>();
+        AccCollection = AccOverList;
+        GyroCollection = GyroOverList;
     }
 
     @Override
@@ -134,6 +148,9 @@ public class MainWearActivity extends Activity implements SensorEventListener,Go
 
     @Override
     public void onSensorChanged(SensorEvent event) {
+        float AccOverMax,GyroOverMax;
+        AccOverMax = 0;
+        GyroOverMax = 0;
         if(event.sensor.getType() == Sensor.TYPE_GYROSCOPE) {
             if(NowVib == false){
                 GyroSensorFilter.addSample(event.values.clone());
@@ -146,8 +163,9 @@ public class MainWearActivity extends Activity implements SensorEventListener,Go
                     DataTextView.setText(String.format("Acc : %f\nGyro : %f\n",AccSize,GyroSize));
                 }
                 if(GyroSize >= GyroTh && SnapLimit.isChecked()){
+                    //GyroOverList.add(GyroSize);
                     Vibration();
-                    ReqestWhistle();
+                    ReqestWhistle(GyroOverMax);
                 }
                 else{
 
@@ -167,9 +185,20 @@ public class MainWearActivity extends Activity implements SensorEventListener,Go
                 if (DataTextView != null) {
                     DataTextView.setText(String.format("Acc : %f\nGyro : %f\n",AccSize,GyroSize));
                 }
-                if(AccSize >= AccTh && PowerLimit.isChecked()){
+                //閾値を超えた場合の処理
+                if(AccSize >= AccTh && PowerLimit.isChecked()) {
+                    //超えだしたとき
+                    if(!IsAccOver){IsAccOver = true;}
+                    AccOverList.add(AccSize);
+                }
+                else if(IsAccOver && AccSize <= (AccTh - 0.5)) {
+                    //超えて元に戻ったとき：最大値をスマホに投げてリストを初期化
+                    AccOverMax = (float) Collections.max(AccCollection);
                     Vibration();
-                    ReqestWhistle();
+                    ReqestWhistle(AccOverMax);
+                    IsAccOver = false;
+                    AccOverList = new ArrayList<Float>();
+                    AccCollection = AccOverList;
                 }
             }
         }
@@ -211,13 +240,14 @@ public class MainWearActivity extends Activity implements SensorEventListener,Go
         }
     }
 
-    private void ReqestWhistle() {
+    private void ReqestWhistle(float OverSize) {
+        final float FinalOverSize = OverSize;
         PendingResult<NodeApi.GetConnectedNodesResult> nodes = Wearable.NodeApi.getConnectedNodes(mGoogleApiClient);
         nodes.setResultCallback(new ResultCallback<NodeApi.GetConnectedNodesResult>() {
             @Override
             public void onResult(NodeApi.GetConnectedNodesResult result) {
                 for (Node node : result.getNodes()) {
-                    final byte[] bs = ("Whistle" + " " + node.getId()).getBytes();
+                    final byte[] bs = (FinalOverSize + " " + node.getId()).getBytes();
                     PendingResult<MessageApi.SendMessageResult> messageResult =
                             Wearable.MessageApi.sendMessage(mGoogleApiClient, node.getId(), "/Whistle", bs);
                     messageResult.setResultCallback(new ResultCallback<MessageApi.SendMessageResult>() {
@@ -233,7 +263,9 @@ public class MainWearActivity extends Activity implements SensorEventListener,Go
     }
 
     private void Vibration() {
+        NowVib = true;
         Vib.vibrate(400);
+        NowVib = false;
     }
 
     @Override

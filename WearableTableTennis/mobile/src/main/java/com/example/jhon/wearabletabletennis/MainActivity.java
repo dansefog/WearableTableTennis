@@ -243,11 +243,18 @@ public class MainActivity extends ActionBarActivity
 
     @Override
     public void onMessageReceived(MessageEvent messageEvent) {
+        float OverSize = 0;
+        String MessagePayload;
         if (messageEvent.getPath().equals("/Whistle")) {
+            MessagePayload = new String(messageEvent.getData());
+            String[] CData = MessagePayload.split(" ");
+            OverSize = Float.parseFloat(CData[0]);
+            //ハンドラを使ってUIスレッドへポスト
+            final float finalOverSize = OverSize - Acc;
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    OutText.setText("つよすぎ！！！");
+                    OutText.setText(String.format("つよすぎ！！！\n超過値：%f", finalOverSize));
                 }
             });
             Whistle.play(WhistleId, 1.0F, 1.0F, 0, 0, 1.0F);
