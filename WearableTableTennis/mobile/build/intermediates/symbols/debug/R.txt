@@ -645,8 +645,9 @@ int layout select_dialog_singlechoice_material 0x7f04001c
 int layout support_simple_spinner_dropdown_item 0x7f04001d
 int menu menu_main 0x7f0f0000
 int mipmap ic_launcher 0x7f030000
-int raw gtm_analytics 0x7f070000
-int raw whistle 0x7f070001
+int raw bonobono 0x7f070000
+int raw gtm_analytics 0x7f070001
+int raw whistle 0x7f070002
 int string abc_action_bar_home_description 0x7f080000
 int string abc_action_bar_home_description_format 0x7f08002d
 int string abc_action_bar_home_subtitle_description_format 0x7f08002e

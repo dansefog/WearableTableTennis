@@ -60,8 +60,8 @@ public class MainActivity extends ActionBarActivity
     float Gyro = 8;
     private boolean IsJudge = false;
 
-    private SoundPool Whistle;
-    private int WhistleId;
+    private SoundPool Whistle,Bonobono;
+    private int WhistleId,BonobonoId;
 
     private Vibrator Vib;
 
@@ -169,7 +169,9 @@ public class MainActivity extends ActionBarActivity
         super.onResume();
         //アラーム読み込み
         Whistle = new SoundPool(1, AudioManager.STREAM_SYSTEM,0);
+        Bonobono = new SoundPool(1, AudioManager.STREAM_SYSTEM,0);
         WhistleId = Whistle.load(getApplicationContext(),R.raw.whistle,0);
+        BonobonoId = Bonobono.load(getApplicationContext(),R.raw.bonobono,0);
         mGoogleApiClient.connect();
     }
 
@@ -187,6 +189,7 @@ public class MainActivity extends ActionBarActivity
             mGoogleApiClient.disconnect();
         }
         Whistle.release();
+        Bonobono.release();
     }
 
     @Override

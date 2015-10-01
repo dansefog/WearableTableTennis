@@ -166,7 +166,7 @@ public class MainWearActivity extends Activity implements SensorEventListener,Go
                 mGyroValues = GyroSensorFilter.getParam();
                 GyroSize = (float) Math.sqrt(mGyroValues[0] * mGyroValues[0] + mGyroValues[1] * mGyroValues[1] + mGyroValues[2] * mGyroValues[2]);
                 if (DataTextView != null) {
-                    DataTextView.setText(String.format("Acc : %f\nGyro : %f\n",AccSize,GyroSize));
+                    DataTextView.setText(String.format("Acc : %.3f\nGyro : %.3f\n",AccSize,GyroSize));
                 }
                 if(GyroSize >= GyroTh && SnapLimit.isChecked()) {
                     if(!IsGyroOver){IsGyroOver = true;}
